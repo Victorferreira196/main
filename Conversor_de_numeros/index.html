@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt_br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <title>Conversor</title>
+    <style>
+        #container {
+            margin-top: 20%;
+            display: flex;
+            text-align: center;
+            align-items: center;
+            justify-content: center;
+            max-width: 60%;
+        }
+    </style>
+    <script>
+        const numeros = [
+            { number: 1000, roman: 'M' },
+            { number: 900, roman: 'CM' },
+            { number: 500, roman: 'D' },
+            { number: 400, roman: 'CD' },
+            { number: 100, roman: 'C' },
+            { number: 90, roman: 'XC' },
+            { number: 50, roman: 'L' },
+            { number: 40, roman: 'XL' },
+            { number: 10, roman: 'X' },
+            { number: 9, roman: 'IX' },
+            { number: 5, roman: 'V' },
+            { number: 4, roman: 'IV' },
+            { number: 1, roman: 'I' },
+        ];
+
+        function conversor() {
+            const inputNumero = document.getElementById('inputNumero');
+            const resultado = document.getElementById('resultado');
+
+            let entrada = inputNumero.value.trim();
+            let algarismoRomano = '';
+
+            for (let i = 0; i < numeros.length; i++) {
+                if (entrada == numeros[i].number || entrada == numeros[i].roman) {
+                    algarismoRomano = entrada == numeros[i].number ? numeros[i].roman : numeros[i].number;
+                }
+            }
+
+            resultado.value = algarismoRomano;
+        }
+    </script>
+</head>
+<body style="background-color: gray;">
+    <div id="container" class="input-group container text-center">
+        <input id="inputNumero" type="text" class="form-control">
+        <button class="btn bg-primary" onclick="conversor()">Converter</button>
+        <input id="resultado" type="text" class="form-control" readonly>
+    </div>
+</body>
+</html>

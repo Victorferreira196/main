@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TreeMap</title>
+
+    <script src="https://cdn.anychart.com/releases/v8/js/anychart-bundle.min.js"></script>
+    <link href="https://cdn.anychart.com/releases/v8/css/anychart-ui.min.css" type="text/css" rel="stylesheet">
+    <style type="text/css">
+        html, body, #container {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="container"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            fetch('https://cdn.anychart.com/samples/tree-map-charts/top-1000-companies/data.json')
+                .then(response => response.json())
+                .then(data => {
+                    var dataTree = anychart.data.tree(data, 'as-table');
+
+                    var chart = anychart.treeMap(dataTree);
+                    
+                    chart.hintDepth(1)
+                        .hintOpacity(0.8)
+                        .selectionMode('none');
+                    
+                    chart.credits()
+                        .enabled(true)
+                        .url('https://opendata.socrata.com/Government/Airplane-Crashes-and-Fatalities-Since-1908/q2te-8cvq')
+                        .text('Fonte de dados: https://opendata.socrata.com')
+                        .logoSrc('https://opendata.socrata.com/stylesheets/images/common/favicon.ico');
+
+                    chart.title()
+                        .enabled(true)
+                        .useHtml(true)
+                        .text('Top 1000 Empresas por Receita da INC.com<br/><span style="color: #212121; font-size: 12px">De acordo com opendata.socrata.com</span>');
+                    chart.labels()
+                        .enabled(true)
+                        .fontSize(14)
+                        .textOverflow('')
+                        .textShadow({
+                            color: 'lightgray',
+                            offsetX: '2px',
+                            offsetY: '2px',
+                            blurRadius: '2px'
+                        });
+                    var tooltip = chart.tooltip();
+                    tooltip.useHtml(true).format(function () {
+                        if (this.getData('city')) {
+                            return (
+                                '<span style="color: #bfbfbf">Receita: </span>$' +
+                                parseInt(this.value).toLocaleString() +
+                                '<br/>' +
+                                '<span style="color: #bfbfbf">Cidade: </span>' +
+                                this.getData('city')
+                            );
+                        }
+                        return (
+                            '<span style="color: #bfbfbf">Receita: </span>$' +
+                            parseInt(this.value).toLocaleString()
+                        );
+                    });
+                    chart.container('container');
+                    chart.draw();
+                });
+        });
+    </script>
+</body>
+</html>
