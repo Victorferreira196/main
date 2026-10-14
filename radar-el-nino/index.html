@@ -38,6 +38,7 @@
   --bar:rgba(22,22,24,.78); --ocean:#0B1A26; --land:#2C2C2E; --land-line:#48484A; --land-br:#4A3226;
   --hero1:#FF9F0A; --hero2:#FF453A; color-scheme:dark}
 *,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
 html{-webkit-text-size-adjust:100%}
 body{background:var(--bg);color:var(--label);font-family:var(--font);font-size:17px;line-height:1.35;letter-spacing:-.01em;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
 button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
@@ -190,6 +191,34 @@ a.row{color:var(--label)}
 .copy{font-size:15px;font-weight:600;color:var(--blue);padding:6px 12px;border-radius:999px;background:var(--fill)}
 .sms{font-family:var(--mono);font-size:34px;font-weight:700;letter-spacing:-.01em;user-select:all}
 
+/* Agora: local */
+.locbtn{display:inline-flex;align-items:center;gap:6px;align-self:flex-start;font-size:15px;font-weight:600;color:var(--blue);padding:4px 0}
+.locbtn svg{width:15px;height:15px}
+.locbtn .dd{width:11px;height:8px}
+.picker{display:flex;flex-direction:column;gap:10px}
+.cta{display:flex;align-items:center;justify-content:center;gap:8px;height:50px;border-radius:12px;background:var(--blue);color:#fff;font-size:17px;font-weight:600;margin-top:6px}
+.cta svg{width:18px;height:18px}
+.cta:active{opacity:.8}
+.sel{position:relative;display:block}
+.sel select{width:100%;height:50px;border-radius:12px;border:0;background:var(--fill);color:var(--label);font:inherit;font-size:17px;padding:0 40px 0 16px;appearance:none;-webkit-appearance:none}
+.sel::after{content:"";position:absolute;right:18px;top:20px;width:8px;height:8px;border:solid var(--label2);border-width:0 2px 2px 0;transform:rotate(45deg);pointer-events:none}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.geomsg{font-size:13px;color:var(--label2)}
+.hero.local{--h1:var(--hero1);--h2:var(--hero2);background:radial-gradient(120% 90% at 100% 0%,rgba(255,255,255,.22),transparent 55%),linear-gradient(150deg,var(--h1),var(--h2));box-shadow:0 10px 30px -12px var(--h2);display:flex;flex-direction:column;gap:4px}
+.hero.local .bigico{width:64px;height:64px;margin:6px 0 4px}
+.hero.local .bigico svg{width:64px;height:64px}
+.hero.local h2{font-family:var(--display);font-size:40px;font-weight:800;letter-spacing:-.03em;line-height:1.05;margin:0}
+.hero.local .txt{font-size:17px;line-height:1.4;margin-top:6px;opacity:.95}
+.hero.local .foot{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.status-row{display:flex;align-items:center;gap:12px;background:var(--card);border-radius:14px;padding:12px 16px;text-align:left;width:100%}
+.status-row .t{flex:1;display:flex;flex-direction:column}
+.status-row small{font-size:15px;color:var(--label2)}
+.dotlive{width:10px;height:10px;border-radius:50%;background:var(--red);box-shadow:0 0 0 4px color-mix(in srgb,var(--red) 25%,transparent);flex:none;animation:pulse 1.8s ease-in-out infinite}
+.tips{display:flex;flex-direction:column}
+.tip{display:flex;gap:14px;align-items:flex-start;padding:12px 16px;position:relative}
+.tip+.tip::before{content:"";position:absolute;top:0;right:0;left:52px;border-top:.5px solid var(--sep)}
+.tip .n{width:24px;height:24px;border-radius:50%;background:var(--fill);display:grid;place-items:center;font-size:13px;font-weight:700;flex:none;margin-top:1px}
+
 /* Barra de abas */
 .tabbar{position:fixed;left:0;right:0;bottom:0;z-index:10;background:var(--bar);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-top:.5px solid var(--sep);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-bottom:env(safe-area-inset-bottom,0px)}
 .tabbar nav{max-width:720px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr);height:56px}
@@ -205,34 +234,40 @@ a.row{color:var(--label)}
 <div class="app">
   <!-- AGORA -->
   <section class="view" id="t-agora" data-tab="agora">
-    <div class="nav"><span class="date">Boletim NOAA · 8 de outubro de 2026</span><h1>El Niño</h1></div>
-    <div class="hero">
-      <span class="pill"><i aria-hidden="true"></i>Alerta ativo</span>
-      <div class="big">+2,1°</div>
-      <div class="sub">Pacífico muito acima do normal</div>
-      <div class="cap">Anomalia na região Niño 3.4 em setembro</div>
-      <svg class="spark" id="spark" preserveAspectRatio="none" aria-label="ONI dos últimos 24 meses"></svg>
-      <div class="axis"><span>out 2024</span><span>ONI · últimos 24 meses</span><span>set 2026</span></div>
+    <div class="nav">
+      <button class="locbtn" id="locbtn" aria-haspopup="dialog"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z"/></svg><span id="locname">Escolha seu estado</span><svg class="dd" viewBox="0 0 12 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m1 1.5 5 5 5-5"/></svg></button>
+      <h1>Agora</h1>
     </div>
-    <div class="tiles">
-      <div class="tile"><span class="k" style="color:var(--red)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M14 14.8V4a2 2 0 1 0-4 0v10.8a4 4 0 1 0 4 0Z"/></svg>ONI jul–set</span><span class="val">+2,16°</span><small>Média de 3 meses, já em “muito forte”</small></div>
-      <div class="tile"><span class="k" style="color:var(--orange)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg>Costa do Peru</span><span class="val">+3,9°</span><small>Região Niño 1+2, a mais quente</small></div>
+
+    <div class="picker card pad" id="picker">
+      <b style="font-size:20px;letter-spacing:-.01em">Onde você está?</b>
+      <span style="font-size:15px;color:var(--label2)">Mostramos o que o El Niño deve trazer para a sua região e o que fazer.</span>
+      <button class="cta" id="geo"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21 3 3 10.5l7.5 2.9L13.4 21Z"/></svg>Usar minha localização</button>
+      <label class="sel"><span class="sr">Estado</span>
+        <select id="uf"><option value="">Ou escolha o estado</option></select>
+      </label>
+      <span class="geomsg" id="geomsg" hidden></span>
     </div>
-    <div class="group">
-      <span class="hd">Chance de evento histórico</span>
-      <div class="card list">
-        <div class="row"><div class="prob"><div class="top"><span>set–nov</span><span class="num" style="color:var(--label2)">54%</span></div><div class="bar"><span style="width:54%"></span></div></div></div>
-        <div class="row"><div class="prob"><div class="top"><b style="font-weight:600">out–dez</b><b class="num" style="color:var(--red)">83%</b></div><div class="bar"><span style="width:83%"></span></div></div></div>
-        <div class="row"><div class="prob"><div class="top"><span>nov–jan</span><span class="num" style="color:var(--label2)">70%</span></div><div class="bar"><span style="width:70%"></span></div></div></div>
+
+    <div id="local" hidden style="display:flex;flex-direction:column;gap:22px">
+      <div class="hero local" id="lhero"></div>
+      <div class="group">
+        <span class="hd">O que fazer agora</span>
+        <div class="card" id="ltips"></div>
+        <div class="card list ic">
+          <button class="row" id="lmore"><span class="ico" style="background:var(--indigo)"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="8" cy="7" r="3"/><circle cx="17" cy="9" r="2.4"/><path d="M2.5 19c0-3.3 2.5-6 5.5-6s5.5 2.7 5.5 6Zm12 0c0-2 .2-3.3 1-4.6 2.8-.4 5.5 1.7 5.5 4.6Z"/></svg></span><span class="t">Idosos, pessoas com deficiência e pets<small>Cuidados específicos para cada um</small></span><svg class="chev" viewBox="0 0 8 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m1 1 6 6-6 6"/></svg></button>
+          <a class="row" href="https://alertas2.inmet.gov.br/" target="_blank" rel="noopener"><span class="ico" style="background:var(--orange)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2 20h20Z"/><path d="M12 10v4"/><circle cx="12" cy="17" r=".5" fill="currentColor"/></svg></span><span class="t">Avisos de hoje no INMET<small>Veja se há alerta para sua cidade</small></span><svg class="chev" viewBox="0 0 8 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m1 1 6 6-6 6"/></svg></a>
+        </div>
       </div>
-      <span class="ft">Probabilidade de o índice passar de +2,5°C, valor nunca registrado desde 1950. Próximo boletim em 12 de novembro.</span>
     </div>
-    <button class="callout" id="go-alert" style="text-align:left;width:100%"><span class="ico" style="background:var(--red)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2 20h20Z"/><path d="M12 10v4"/><circle cx="12" cy="17" r=".5" fill="currentColor"/></svg></span><p style="flex:1"><b>Como se proteger</b>O que fazer em calor extremo, temporais e fumaça, com cuidados para idosos, pessoas com deficiência e pets.</p><svg class="chev" style="align-self:center" viewBox="0 0 8 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m1 1 6 6-6 6"/></svg></button>
-    <div class="group">
-      <span class="hd">No Brasil</span>
-      <div class="card list ic" id="br-list"></div>
-      <span class="ft">Toque numa região para ver no mapa.</span>
+
+    <div class="tels" aria-label="Telefones de emergência">
+      <a class="tel" href="tel:199"><span class="n">199</span><small>Defesa Civil</small></a>
+      <a class="tel" href="tel:193"><span class="n">193</span><small>Bombeiros</small></a>
+      <a class="tel" href="tel:192"><span class="n">192</span><small>SAMU</small></a>
     </div>
+
+    <button class="status-row" id="go-ocean"><span class="dotlive"></span><span class="t"><b>El Niño muito forte</b><small>Pacífico +2,1°C acima do normal</small></span><svg class="chev" viewBox="0 0 8 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m1 1 6 6-6 6"/></svg></button>
   </section>
 
   <!-- MAPA -->
@@ -293,10 +328,33 @@ a.row{color:var(--label)}
 
   <!-- HISTÓRICO -->
   <section class="view" id="t-historico" data-tab="historico" hidden>
-    <div class="nav"><span class="date">Índice Oceânico Niño</span><h1>Histórico</h1></div>
+    <div class="nav"><span class="date">Boletim NOAA · 8 de outubro de 2026</span><h1>Pacífico</h1></div>
+    <div class="hero">
+      <span class="pill"><i aria-hidden="true"></i>Alerta ativo</span>
+      <div class="big">+2,1°</div>
+      <div class="sub">Pacífico muito acima do normal</div>
+      <div class="cap">Anomalia na região Niño 3.4 em setembro</div>
+      <svg class="spark" id="spark" preserveAspectRatio="none" aria-label="ONI dos últimos 24 meses"></svg>
+      <div class="axis"><span>out 2024</span><span>ONI · últimos 24 meses</span><span>set 2026</span></div>
+    </div>
+    <div class="tiles">
+      <div class="tile"><span class="k" style="color:var(--red)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M14 14.8V4a2 2 0 1 0-4 0v10.8a4 4 0 1 0 4 0Z"/></svg>ONI jul–set</span><span class="val">+2,16°</span><small>Média de 3 meses, já em “muito forte”</small></div>
+      <div class="tile"><span class="k" style="color:var(--orange)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg>Costa do Peru</span><span class="val">+3,9°</span><small>Região Niño 1+2, a mais quente</small></div>
+    </div>
+    <div class="group">
+      <span class="hd">Chance de evento histórico</span>
+      <div class="card list">
+        <div class="row"><div class="prob"><div class="top"><span>set–nov</span><span class="num" style="color:var(--label2)">54%</span></div><div class="bar"><span style="width:54%"></span></div></div></div>
+        <div class="row"><div class="prob"><div class="top"><b style="font-weight:600">out–dez</b><b class="num" style="color:var(--red)">83%</b></div><div class="bar"><span style="width:83%"></span></div></div></div>
+        <div class="row"><div class="prob"><div class="top"><span>nov–jan</span><span class="num" style="color:var(--label2)">70%</span></div><div class="bar"><span style="width:70%"></span></div></div></div>
+      </div>
+      <span class="ft">Probabilidade de o índice passar de +2,5°C, valor nunca registrado desde 1950. Próximo boletim em 12 de novembro.</span>
+    </div>
+    <div class="group"><span class="hd">Índice Oceânico Niño desde 1950</span>
     <div class="card pad" style="display:flex;flex-direction:column;gap:8px">
       <div class="readout" id="readout"></div>
       <div class="chart" id="chart"></div>
+    </div>
     </div>
     <div class="group">
       <span class="hd">Os El Niños mais fortes</span>
@@ -341,7 +399,7 @@ a.row{color:var(--label)}
     <button role="tab" data-go="agora" aria-selected="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 14.8V4a2 2 0 1 0-4 0v10.8a4 4 0 1 0 4 0Z" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="17.5" r="2.2"/><path d="M12 9v8.5" stroke="currentColor" stroke-width="2"/></svg>Agora</button>
     <button role="tab" data-go="mapa" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M3 6.5 9 4l6 2.5L21 4v13.5L15 20l-6-2.5L3 20Z"/><path d="M9 4v13.5M15 6.5V20"/></svg>Mapa</button>
     <button role="tab" data-go="alertas" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2 20h20Z"/><path d="M12 10v4"/><circle cx="12" cy="17" r=".6" fill="currentColor"/></svg>Alertas</button>
-    <button role="tab" data-go="historico" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 3v18h18"/><path d="m7 15 4-5 3 3 5-7"/></svg>Histórico</button>
+    <button role="tab" data-go="historico" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 3v18h18"/><path d="m7 15 4-5 3 3 5-7"/></svg>Pacífico</button>
     <button role="tab" data-go="sobre" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9.5"/><path d="M12 11v6"/><circle cx="12" cy="7.5" r=".6" fill="currentColor"/></svg>Sobre</button>
   </nav>
 </div>
@@ -409,7 +467,7 @@ function go(tab){
   document.querySelectorAll(".tabbar button").forEach(b=>b.setAttribute("aria-selected",b.dataset.go===tab));
   window.scrollTo(0,0);
   if(tab==="mapa")render();
-  if(tab==="historico")chart();
+  if(tab==="historico"){chart();spark();}
 }
 document.querySelectorAll(".tabbar button").forEach(b=>b.onclick=()=>go(b.dataset.go));
 
@@ -429,8 +487,6 @@ function spark(){
   s.append("path").attr("d",ln(d)).attr("fill","none").attr("stroke","#fff").attr("stroke-width",2.5).attr("stroke-linecap","round");
   s.append("circle").attr("cx",x(d.length-1)).attr("cy",y(d[d.length-1].v)).attr("r",4.5).attr("fill","#fff");
 }
-document.getElementById("br-list").innerHTML=BR.map(b=>`<button class="row" data-id="${b.id}">${ico(b.t)}<span class="t">${b.name}<small>${b.short}</small></span>${CHEV}</button>`).join("");
-document.querySelectorAll("#br-list .row").forEach(r=>r.onclick=()=>{state.sel=r.dataset.id;go("mapa");setView("br",true);});
 
 /* ---------- Mapa ---------- */
 const countries=topojson.feature(WORLD,WORLD.objects.countries);
@@ -554,6 +610,47 @@ document.getElementById("copy-sms").onclick=e=>{const b=e.currentTarget;const do
   try{navigator.clipboard.writeText("40199").then(done,()=>{getSelection().selectAllChildren(document.getElementById("sms"));});}catch(err){getSelection().selectAllChildren(document.getElementById("sms"));}};
 hazard("calor");
 
+/* ---------- Agora: localização ---------- */
+const UF=[["AC","Acre",-9.97,-67.81,"br-n"],["AL","Alagoas",-9.67,-35.74,"br-ne"],["AP","Amapá",.03,-51.07,"br-n"],["AM","Amazonas",-3.12,-60.02,"br-n"],["BA","Bahia",-12.97,-38.5,"br-ne"],["CE","Ceará",-3.73,-38.52,"br-ne"],["DF","Distrito Federal",-15.79,-47.88,"br-co"],["ES","Espírito Santo",-20.32,-40.34,"br-se"],["GO","Goiás",-16.68,-49.25,"br-co"],["MA","Maranhão",-2.53,-44.3,"br-ne"],["MT","Mato Grosso",-15.6,-56.1,"br-co"],["MS","Mato Grosso do Sul",-20.47,-54.62,"br-co"],["MG","Minas Gerais",-19.92,-43.94,"br-se"],["PA","Pará",-1.46,-48.49,"br-n"],["PB","Paraíba",-7.12,-34.86,"br-ne"],["PR","Paraná",-25.43,-49.27,"br-s"],["PE","Pernambuco",-8.05,-34.88,"br-ne"],["PI","Piauí",-5.09,-42.8,"br-ne"],["RJ","Rio de Janeiro",-22.91,-43.17,"br-se"],["RN","Rio Grande do Norte",-5.79,-35.21,"br-ne"],["RS","Rio Grande do Sul",-30.03,-51.23,"br-s"],["RO","Rondônia",-8.76,-63.9,"br-n"],["RR","Roraima",2.82,-60.67,"br-n"],["SC","Santa Catarina",-27.6,-48.55,"br-s"],["SP","São Paulo",-23.55,-46.63,"br-se"],["SE","Sergipe",-10.91,-37.07,"br-ne"],["TO","Tocantins",-10.18,-48.33,"br-n"]];
+const HEAD={wet:"Mais chuva",dry:"Mais seco",heat:"Mais calor"};
+const GRAD={wet:["--blue","--indigo"],dry:["--orange","--hero2"],heat:["--hero1","--hero2"]};
+const HZOF=t=>t==="wet"?"chuva":t==="dry"?"seca":"calor";
+const sel=document.getElementById("uf");
+sel.insertAdjacentHTML("beforeend",UF.map(u=>`<option value="${u[0]}">${u[1]}</option>`).join(""));
+let myUF=null;try{myUF=localStorage.getItem("radar-uf")}catch(e){}
+function setUF(code){
+  myUF=code||null;try{code?localStorage.setItem("radar-uf",code):localStorage.removeItem("radar-uf")}catch(e){}
+  const u=UF.find(x=>x[0]===code);
+  document.getElementById("picker").hidden=!!u;
+  document.getElementById("local").hidden=!u;
+  document.getElementById("locname").textContent=u?u[1]:"Escolha seu estado";
+  if(!u)return;
+  const r=BR.find(b=>b.id===u[4]);const h=HZ[HZOF(r.t)];const g=GRAD[r.t];
+  const el=document.getElementById("lhero");
+  el.style.setProperty("--h1",`var(${g[0]})`);el.style.setProperty("--h2",`var(${g[1]})`);
+  el.innerHTML=`<span class="pill" style="align-self:flex-start">Região ${r.name} · ${r.when}</span>
+    <div class="bigico">${ICON[r.t]}</div>
+    <h2>${HEAD[r.t]}</h2>
+    <div class="txt">${r.txt}</div>
+    <div class="foot"><span class="pill">${r.src===INMET?"Previsão INMET 2026/27":"Padrão histórico do El Niño"}</span></div>`;
+  document.getElementById("ltips").innerHTML=`<div class="tips">${h.all.slice(0,3).map((x,i)=>`<div class="tip"><span class="n">${i+1}</span><span>${x}</span></div>`).join("")}</div>`;
+  document.getElementById("lmore").onclick=()=>{go("alertas");hazard(HZOF(r.t));};
+}
+sel.onchange=()=>setUF(sel.value);
+document.getElementById("locbtn").onclick=()=>{setUF(null);sel.value="";document.getElementById("picker").scrollIntoView({behavior:"smooth",block:"center"});};
+document.getElementById("geo").onclick=()=>{
+  const m=document.getElementById("geomsg");
+  const fail=()=>{m.hidden=false;m.textContent="Não foi possível usar a localização aqui. Escolha o estado na lista.";};
+  if(!navigator.geolocation)return fail();
+  m.hidden=false;m.textContent="Localizando…";
+  try{navigator.geolocation.getCurrentPosition(p=>{
+    const {latitude:la,longitude:lo}=p.coords;
+    const near=UF.reduce((a,u)=>{const d=(u[2]-la)**2+(u[3]-lo)**2;return d<a.d?{u,d}:a},{d:1e9}).u;
+    m.hidden=true;sel.value=near[0];setUF(near[0]);
+  },fail,{timeout:8000,maximumAge:600000});}catch(e){fail();}
+};
+document.getElementById("go-ocean").onclick=()=>go("historico");
+
 /* ---------- Histórico ---------- */
 const SEAS_PT=["dez–fev","jan–mar","fev–abr","mar–mai","abr–jun","mai–jul","jun–ago","jul–set","ago–out","set–nov","out–dez","nov–jan"];
 function cls(v){const a=Math.abs(v);if(a<.5)return"Neutro";const s=a>=2?"muito forte":a>=1.5?"forte":a>=1?"moderado":"fraco";return(v>0?"El Niño ":"La Niña ")+s;}
@@ -600,7 +697,7 @@ function peaks(){
 
 /* ---------- Início ---------- */
 spark();peaks();
-document.getElementById("go-alert").onclick=()=>go("alertas");
+setUF(myUF);
 const h0=(location.hash||"").slice(1);
 go(TABS.includes(h0)?h0:"agora");
 function redraw(){spark();render();chart();}
