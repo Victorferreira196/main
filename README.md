@@ -10,7 +10,7 @@ Cada pasta é independente: basta abrir o `index.html` no navegador.
 | [`conversor-romanos`](conversor-romanos/) | Conversor de números arábicos para algarismos romanos | HTML, JavaScript, Bootstrap |
 | [`treemap`](treemap/) | Visualização em treemap das maiores empresas do mundo | HTML, JavaScript, AnyChart |
 | [`jogo-mata-mosquito`](jogo-mata-mosquito/) | Jogo de clicar nos mosquitos antes que as vidas acabem | HTML, CSS, JavaScript |
-| [`radar-el-nino`](radar-el-nino/) | App em estilo iOS com abas sobre o El Niño 2026/27: status do Pacífico, mapa de impactos no mundo e no Brasil e série histórica do ONI | HTML, JavaScript, D3 |
+| [`radar-el-nino`](radar-el-nino/) | App em estilo iOS com abas sobre o El Niño 2026/27: status do Pacífico, mapa de impactos, alertas de clima extremo com cuidados para idosos, PcD e pets, e série histórica do ONI | HTML, JavaScript, D3 |
 
 ## Como rodar
 

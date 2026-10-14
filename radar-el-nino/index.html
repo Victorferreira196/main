@@ -159,9 +159,40 @@ a.row{color:var(--label)}
 .scale{display:flex;height:10px;border-radius:5px;overflow:hidden;margin-top:6px}
 .scale span{flex:1}
 
+/* Alertas */
+.seg3{grid-template-columns:repeat(3,1fr)}
+.seg3 .thumb{width:calc((100% - 4px)/3)}
+.seg3[data-i="1"] .thumb{transform:translateX(100%)}
+.seg3[data-i="2"] .thumb{transform:translateX(200%)}
+.callout{display:flex;gap:12px;align-items:flex-start;background:var(--card);border-radius:14px;padding:14px 16px}
+.callout .ico{margin-top:2px}
+.callout p{margin:0;font-size:15px;line-height:1.4}
+.callout b{display:block;font-size:17px;margin-bottom:2px}
+.danger{background:linear-gradient(150deg,var(--hero1),var(--hero2));color:#fff}
+.danger p{opacity:.95}
+.bul{display:flex;flex-direction:column}
+.bul li{list-style:none;position:relative;padding:11px 16px 11px 40px;font-size:16px;line-height:1.4}
+.bul li+li::before{content:"";position:absolute;top:0;right:0;left:40px;border-top:.5px solid var(--sep)}
+.bul li::after{content:"";position:absolute;left:18px;top:19px;width:7px;height:7px;border-radius:50%;background:var(--c,var(--blue))}
+.bul{margin:0;padding:0}
+.who{display:flex;align-items:center;gap:10px;padding:12px 16px 4px;font-weight:700;font-size:17px}
+.tels{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.tel{background:var(--card);border-radius:14px;padding:12px;display:flex;flex-direction:column;gap:2px;align-items:flex-start;color:var(--label)}
+.tel .n{font-family:var(--mono);font-size:30px;font-weight:700;letter-spacing:-.02em;color:var(--red);font-variant-numeric:tabular-nums}
+.tel small{font-size:13px;color:var(--label2);line-height:1.25}
+.lv{width:12px;height:12px;border-radius:50%;flex:none}
+.chk{display:flex;align-items:center;gap:12px;min-height:44px;padding:10px 16px;position:relative;cursor:pointer;font-size:16px}
+.chk+.chk::before{content:"";position:absolute;top:0;right:0;left:52px;border-top:.5px solid var(--sep)}
+.chk input{appearance:none;-webkit-appearance:none;width:24px;height:24px;border-radius:50%;border:2px solid var(--label3);flex:none;margin:0;display:grid;place-items:center;transition:background .15s,border-color .15s;cursor:pointer}
+.chk input:checked{background:var(--green);border-color:var(--green)}
+.chk input:checked::after{content:"";width:6px;height:11px;border:solid #fff;border-width:0 2.5px 2.5px 0;transform:translateY(-1px) rotate(45deg)}
+.chk input:checked+span{color:var(--label2);text-decoration:line-through}
+.copy{font-size:15px;font-weight:600;color:var(--blue);padding:6px 12px;border-radius:999px;background:var(--fill)}
+.sms{font-family:var(--mono);font-size:34px;font-weight:700;letter-spacing:-.01em;user-select:all}
+
 /* Barra de abas */
 .tabbar{position:fixed;left:0;right:0;bottom:0;z-index:10;background:var(--bar);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-top:.5px solid var(--sep);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-bottom:env(safe-area-inset-bottom,0px)}
-.tabbar nav{max-width:720px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);height:56px}
+.tabbar nav{max-width:720px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr);height:56px}
 .tabbar button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:10px;font-weight:600;color:var(--label2);transition:color .2s}
 .tabbar button svg{width:26px;height:26px}
 .tabbar button[aria-selected="true"]{color:var(--blue)}
@@ -196,6 +227,7 @@ a.row{color:var(--label)}
       </div>
       <span class="ft">Probabilidade de o índice passar de +2,5°C, valor nunca registrado desde 1950. Próximo boletim em 12 de novembro.</span>
     </div>
+    <button class="callout" id="go-alert" style="text-align:left;width:100%"><span class="ico" style="background:var(--red)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2 20h20Z"/><path d="M12 10v4"/><circle cx="12" cy="17" r=".5" fill="currentColor"/></svg></span><p style="flex:1"><b>Como se proteger</b>O que fazer em calor extremo, temporais e fumaça, com cuidados para idosos, pessoas com deficiência e pets.</p><svg class="chev" style="align-self:center" viewBox="0 0 8 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m1 1 6 6-6 6"/></svg></button>
     <div class="group">
       <span class="hd">No Brasil</span>
       <div class="card list ic" id="br-list"></div>
@@ -218,6 +250,45 @@ a.row{color:var(--label)}
       <span class="hd" id="list-hd">Regiões do Pacífico</span>
       <div class="card list ic" id="sel-list"></div>
     </div>
+  </section>
+
+  <!-- ALERTAS -->
+  <section class="view" id="t-alertas" data-tab="alertas" hidden>
+    <div class="nav"><span class="date">Clima extremo</span><h1>Alertas</h1></div>
+    <div class="tels" aria-label="Telefones de emergência">
+      <a class="tel" href="tel:199"><span class="n">199</span><small>Defesa Civil</small></a>
+      <a class="tel" href="tel:193"><span class="n">193</span><small>Bombeiros</small></a>
+      <a class="tel" href="tel:192"><span class="n">192</span><small>SAMU</small></a>
+    </div>
+    <div class="group">
+      <span class="hd">Receba alertas no celular</span>
+      <div class="card pad" style="display:flex;flex-direction:column;gap:8px">
+        <span style="font-size:15px;color:var(--label2)">Envie um SMS só com o <b style="color:var(--label)">CEP</b> da sua casa para</span>
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px"><span class="sms" id="sms">40199</span><button class="copy" id="copy-sms">Copiar</button></div>
+        <span style="font-size:13px;color:var(--label2)">É gratuito. Dá para cadastrar mais de um CEP, como o da casa de um familiar idoso. Para parar, envie “sair” e o CEP.</span>
+      </div>
+      <div class="card list">
+        <a class="row" href="https://alertas2.inmet.gov.br/" target="_blank" rel="noopener"><span class="ico" style="background:var(--orange)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2 20h20Z"/><path d="M12 10v4"/><circle cx="12" cy="17" r=".5" fill="currentColor"/></svg></span><span class="t">Avisos ativos do INMET<small>Mapa oficial com os alertas de hoje</small></span><svg class="chev" viewBox="0 0 8 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m1 1 6 6-6 6"/></svg></a>
+      </div>
+    </div>
+    <div class="group">
+      <span class="hd">Níveis de aviso do INMET</span>
+      <div class="card list">
+        <div class="row"><span class="lv" style="background:var(--yellow)"></span><span class="t">Perigo potencial<small>Fique atento à previsão</small></span></div>
+        <div class="row"><span class="lv" style="background:var(--orange)"></span><span class="t">Perigo<small>Prepare-se e evite áreas de risco</small></span></div>
+        <div class="row"><span class="lv" style="background:var(--red)"></span><span class="t">Grande perigo<small>Siga as ordens da Defesa Civil e saia de áreas de risco</small></span></div>
+      </div>
+    </div>
+
+    <div class="seg seg3" id="hz" data-i="0" role="tablist" aria-label="Tipo de evento"><span class="thumb"></span><button role="tab" data-h="calor">Calor</button><button role="tab" data-h="chuva">Chuva</button><button role="tab" data-h="seca">Seca e fumaça</button></div>
+    <div id="hz-body" style="display:flex;flex-direction:column;gap:22px"></div>
+
+    <div class="group">
+      <span class="hd">Mochila de emergência</span>
+      <div class="card" id="kit"></div>
+      <span class="ft">Deixe pronta e num lugar fácil de pegar. Os itens marcados ficam salvos neste aparelho.</span>
+    </div>
+    <span class="ft" style="padding:0 16px;font-size:13px;color:var(--label2)">Orientações baseadas no guia de onda de calor do Ministério da Saúde e nas recomendações da Defesa Civil. Em caso de dúvida sobre remédios, fale com o médico antes de mudar qualquer coisa.</span>
   </section>
 
   <!-- HISTÓRICO -->
@@ -269,6 +340,7 @@ a.row{color:var(--label)}
   <nav role="tablist" aria-label="Seções">
     <button role="tab" data-go="agora" aria-selected="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 14.8V4a2 2 0 1 0-4 0v10.8a4 4 0 1 0 4 0Z" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="17.5" r="2.2"/><path d="M12 9v8.5" stroke="currentColor" stroke-width="2"/></svg>Agora</button>
     <button role="tab" data-go="mapa" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M3 6.5 9 4l6 2.5L21 4v13.5L15 20l-6-2.5L3 20Z"/><path d="M9 4v13.5M15 6.5V20"/></svg>Mapa</button>
+    <button role="tab" data-go="alertas" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2 20h20Z"/><path d="M12 10v4"/><circle cx="12" cy="17" r=".6" fill="currentColor"/></svg>Alertas</button>
     <button role="tab" data-go="historico" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 3v18h18"/><path d="m7 15 4-5 3 3 5-7"/></svg>Histórico</button>
     <button role="tab" data-go="sobre" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9.5"/><path d="M12 11v6"/><circle cx="12" cy="7.5" r=".6" fill="currentColor"/></svg>Sobre</button>
   </nav>
@@ -330,7 +402,7 @@ const ico=k=>`<span class="ico" style="background:var(${KIND[k].c})">${ICON[k]}<
 const state={tab:"agora",view:"world",sel:"n34",lambda:130,types:new Set(["wet","dry","heat"])};
 try{const s=JSON.parse(localStorage.getItem("radar-elnino-ios")||"{}");if(s.types)state.types=new Set(s.types);}catch(e){}
 const save=()=>{try{localStorage.setItem("radar-elnino-ios",JSON.stringify({types:[...state.types]}))}catch(e){}};
-const TABS=["agora","mapa","historico","sobre"];
+const TABS=["agora","mapa","alertas","historico","sobre"];
 function go(tab){
   state.tab=tab;
   document.querySelectorAll(".view").forEach(v=>v.hidden=v.dataset.tab!==tab);
@@ -418,7 +490,9 @@ function detail(){
     <h3>${d.name}</h3>
     ${isN?`<div style="font-family:var(--mono);font-size:40px;font-weight:600;letter-spacing:-.02em;color:var(--red)" class="num">${d.v==null?"sem dado":fmt(d.v)+"°C"}</div>`:`<div class="meta">${d.when}</div>`}
     <p style="margin:0">${d.txt}</p>
-    ${isN?"":`<div class="src">${d.src===INMET?'<span class="badge live">Previsão 2026/27</span>':'<span class="badge">Padrão histórico</span>'}<span>${d.src}</span></div>`}`;
+    ${isN?"":`<div class="src">${d.src===INMET?'<span class="badge live">Previsão 2026/27</span>':'<span class="badge">Padrão histórico</span>'}<span>${d.src}</span></div>`}
+    ${!isN&&d.t!=="mix"?`<button class="row" id="what-do" style="padding:10px 0;color:var(--blue);font-weight:600">O que fazer${CHEV}</button>`:""}`;
+  const wd=document.getElementById("what-do");if(wd)wd.onclick=()=>{go("alertas");hazard(d.t==="wet"?"chuva":d.t==="dry"?"seca":"calor");};
   const list=state.view==="br"?BR:NINO;
   document.getElementById("list-hd").textContent=state.view==="br"?"Regiões do Brasil":"Regiões do Pacífico";
   const el=document.getElementById("sel-list");
@@ -432,6 +506,53 @@ document.querySelectorAll(".fbtn").forEach(c=>{
   c.setAttribute("aria-pressed",state.types.has(c.dataset.t));
   c.onclick=()=>{const t=c.dataset.t;state.types.has(t)?state.types.delete(t):state.types.add(t);c.setAttribute("aria-pressed",state.types.has(t));save();draw();};
 });
+
+/* ---------- Alertas ---------- */
+const HZ={
+  calor:{icon:"heat",c:"--red",danger:"Pele quente e seca, confusão mental, desmaio ou febre alta podem ser insolação. Leve para a sombra, refresque com panos úmidos e ligue 192.",
+    signs:["Tontura, dor de cabeça ou náusea","Câimbras e fraqueza","Suor excessivo ou, ao contrário, pele seca","Sede intensa e urina escura"],
+    all:["Beba água ao longo do dia, mesmo sem sede","Evite o sol entre 10h e 16h","Use roupas leves e claras","Feche cortinas do lado do sol e abra as janelas à noite","Prefira refeições leves e evite álcool","Nunca deixe criança ou animal dentro de carro fechado"],
+    groups:{
+      idosos:["Ofereça água em horários fixos: idosos muitas vezes não sentem sede","Ligue ou visite duas vezes por dia quem mora sozinho","Remédios para pressão e diuréticos aumentam o risco. Converse com o médico, mas não suspenda por conta própria","Guarde os remédios em local fresco","Use roupa de cama e pijama leves"],
+      pcd:["Pessoas com lesão medular e algumas condições neurológicas podem não suar. Refresque com toalha úmida e ventilador","Quem tem dificuldade para se comunicar pode mostrar o calor como irritação ou sonolência. Observe","Cadeira de rodas, muletas e próteses esquentam ao sol. Deixe na sombra e toque antes de usar","Combine com o cuidador uma rotina de água e pausas","Tenha um plano para falta de luz se usa equipamento elétrico, como concentrador de oxigênio"],
+      pets:["Deixe água fresca em mais de um pote","Passeie só de manhã cedo ou à noite. Encoste o dorso da mão no asfalto por 5 segundos: se não aguentar, a pata também não aguenta","Raças de focinho curto, como pug, bulldog e gatos persas, e animais idosos sofrem mais","Respiração muito ofegante, muita baba, gengiva vermelho-escura ou prostração: leve ao veterinário","Molhe patas e barriga com água fresca, nunca gelada"]}},
+  chuva:{icon:"wet",c:"--blue",danger:"Rachaduras novas nas paredes, portas emperrando, árvores ou postes inclinando e água barrenta saindo do morro indicam risco de deslizamento. Saia na hora e ligue 199.",
+    signs:["Água subindo rápido na rua ou no rio","Estalos vindos do terreno ou da casa","Fios de energia caídos","Aviso laranja ou vermelho do INMET para sua cidade"],
+    all:["Cadastre seu CEP no 40199","Nunca atravesse rua alagada, a pé ou de carro: pouca água em movimento já derruba um adulto e arrasta um carro","Se a água entrar, desligue a energia e o gás","Durante raios, fique dentro de casa e longe de árvores","Guarde documentos e remédios em saco plástico, num lugar alto","Depois da enchente, evite contato com a água e a lama, que transmitem leptospirose. Use botas e luvas"],
+    groups:{
+      idosos:["Combine antes com família ou vizinhos quem vai buscar","Saia cedo, no primeiro aviso laranja ou vermelho. Não espere a água chegar","Leve remédios para 7 dias e as receitas","Não esqueça óculos, aparelho auditivo, dentadura e bengala"],
+      pcd:["Se mora em área de risco e precisa de ajuda para sair, avise a Defesa Civil da sua cidade com antecedência","Quem usa equipamento elétrico para viver deve se cadastrar na distribuidora de energia e ter plano para falta de luz","Na mochila: carregador, pilhas do aparelho auditivo, sondas, fraldas e remédios","Pessoas surdas: ative alertas por vibração e combine um sinal com um vizinho","Pessoas cegas: memorize a rota de saída e peça a alguém para avisar em caso de alerta"],
+      pets:["Inclua o pet no plano de saída. Nunca deixe o animal preso ou amarrado","Coloque identificação com telefone na coleira","Separe caixa de transporte, guia, ração para alguns dias e a carteira de vacinação","Antes de ir para um abrigo, pergunte se ele aceita animais","Depois da enchente, mantenha o pet longe da água parada por causa da leptospirose"]}},
+  seca:{icon:"dry",c:"--orange",danger:"Falta de ar, chiado no peito, dor no peito ou lábios arroxeados são sinais de emergência. Ligue 192.",
+    signs:["Umidade do ar abaixo de 30%","Fumaça visível ou cheiro de queimado","Olhos ardendo e garganta seca","Tosse que não passa"],
+    all:["Beba mais água e use soro fisiológico no nariz","Evite exercício ao ar livre entre 10h e 17h","Com fumaça, feche janelas e portas","Se precisar sair na fumaça, use máscara PFF2 ou N95. Máscara de pano não protege","Deixe uma bacia de água ou toalha úmida no quarto","Não queime lixo nem mato. Viu queimada? Ligue 193"],
+    groups:{
+      idosos:["Coração e pulmão sofrem mais com o ar seco e a fumaça","Mantenha à mão os remédios de asma, bronquite ou DPOC","Fique atento a cansaço fora do normal e confusão"],
+      pcd:["Pessoas com mobilidade reduzida demoram mais para sair de área de incêndio. Tenha um plano de saída","Quem não consegue usar máscara deve ficar em ambiente fechado, com janelas vedadas","Quem usa traqueostomia ou ventilação precisa de cuidado extra com umidade e filtros. Fale com a equipe de saúde"],
+      pets:["Água fresca sempre","Evite passeios em dias de fumaça","Animais de focinho curto e com problema respiratório sofrem mais","Se o fogo se aproximar, leve os animais junto"]}}
+};
+const WHO=[["idosos","Idosos","--indigo",'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="4.5" r="2" fill="currentColor"/><path d="M11 8v6l-2 7M11 14l3 7M8 11l3-3 3 3M17 11v10"/></svg>'],
+  ["pcd","Pessoas com deficiência","--blue",'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="4" r="2" fill="currentColor"/><path d="M12 7v7h5l2 5M8.5 10.5a6 6 0 1 0 7.5 8"/></svg>'],
+  ["pets","Pets","--orange",'<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="6" cy="10" r="2.2"/><circle cx="10" cy="5.5" r="2.2"/><circle cx="14" cy="5.5" r="2.2"/><circle cx="18" cy="10" r="2.2"/><path d="M12 11c-3 0-6 4.5-6 7a2.5 2.5 0 0 0 3.2 2.4c1-.3 1.8-.6 2.8-.6s1.8.3 2.8.6A2.5 2.5 0 0 0 18 18c0-2.5-3-7-6-7Z"/></svg>']];
+const bul=(arr,c)=>`<ul class="bul" style="--c:var(${c})">${arr.map(x=>`<li>${x}</li>`).join("")}</ul>`;
+function hazard(h){
+  state.hz=h;const z=HZ[h];const i=Object.keys(HZ).indexOf(h);
+  document.getElementById("hz").dataset.i=i;
+  document.querySelectorAll("#hz button").forEach(b=>b.setAttribute("aria-selected",b.dataset.h===h));
+  document.getElementById("hz-body").innerHTML=`
+    <div class="callout danger">${ico(z.icon).replace('style="background:var('+KIND[z.icon].c+')"','style="background:rgba(255,255,255,.25)"')}<p><b>Emergência</b>${z.danger}</p></div>
+    <div class="group"><span class="hd">Sinais de alerta</span><div class="card">${bul(z.signs,z.c)}</div></div>
+    <div class="group"><span class="hd">Para todos</span><div class="card">${bul(z.all,"--green")}</div></div>
+    ${WHO.map(([k,n,c,svg])=>`<div class="group"><div class="card"><div class="who"><span class="ico" style="background:var(${c})">${svg}</span>${n}</div>${bul(z.groups[k],c)}</div></div>`).join("")}`;
+}
+document.querySelectorAll("#hz button").forEach(b=>b.onclick=()=>hazard(b.dataset.h));
+const KIT=["Documentos em saco plástico","Remédios para 7 dias e as receitas","Água: 3 litros por pessoa por dia","Lanterna e pilhas","Carregador portátil de celular","Lista de contatos escrita em papel","Óculos, aparelho auditivo e pilhas","Itens de acessibilidade e carregador da cadeira","Ração, guia, caixa de transporte e vacinas do pet","Máscaras PFF2"];
+let kit=[];try{kit=JSON.parse(localStorage.getItem("radar-kit")||"[]")}catch(e){}
+document.getElementById("kit").innerHTML=KIT.map((k,i)=>`<label class="chk"><input type="checkbox" id="kit-${i}" ${kit.includes(i)?"checked":""}><span>${k}</span></label>`).join("");
+document.querySelectorAll("#kit input").forEach((c,i)=>c.onchange=()=>{kit=kit.filter(x=>x!==i);if(c.checked)kit.push(i);try{localStorage.setItem("radar-kit",JSON.stringify(kit))}catch(e){}});
+document.getElementById("copy-sms").onclick=e=>{const b=e.currentTarget;const done=()=>{b.textContent="Copiado";setTimeout(()=>b.textContent="Copiar",1500);};
+  try{navigator.clipboard.writeText("40199").then(done,()=>{getSelection().selectAllChildren(document.getElementById("sms"));});}catch(err){getSelection().selectAllChildren(document.getElementById("sms"));}};
+hazard("calor");
 
 /* ---------- Histórico ---------- */
 const SEAS_PT=["dez–fev","jan–mar","fev–abr","mar–mai","abr–jun","mai–jul","jun–ago","jul–set","ago–out","set–nov","out–dez","nov–jan"];
@@ -479,6 +600,7 @@ function peaks(){
 
 /* ---------- Início ---------- */
 spark();peaks();
+document.getElementById("go-alert").onclick=()=>go("alertas");
 const h0=(location.hash||"").slice(1);
 go(TABS.includes(h0)?h0:"agora");
 function redraw(){spark();render();chart();}
