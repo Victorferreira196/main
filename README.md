@@ -3,6 +3,8 @@
 Coleção de pequenos projetos em HTML, CSS e JavaScript feitos durante os estudos de desenvolvimento web.
 Cada pasta é independente: basta abrir o `index.html` no navegador.
 
+> Repositório privado. O Radar El Niño não fica mais publicado no GitHub Pages; para ver, abra `radar-el-nino/index.html` localmente.
+
 | Projeto | O que é | Tecnologias |
 |---|---|---|
 | [`agencia-fake`](agencia-fake/) | Landing page responsiva de uma agência digital fictícia | HTML, CSS |
@@ -15,8 +17,8 @@ Cada pasta é independente: basta abrir o `index.html` no navegador.
 ## Como rodar
 
 ```bash
-git clone https://github.com/Victorferreira196/main.git
-cd main/<projeto>
+git clone https://github.com/Victorferreira196/projetos-front-end.git
+cd projetos-front-end/<projeto>
 # abra o index.html no navegador, ou sirva a pasta:
 python3 -m http.server 8000
 ```
